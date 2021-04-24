@@ -1,0 +1,2055 @@
+{
+	"info": {
+		"_postman_id": "e129bd63-e2f9-48c8-b56d-06d5b1f554b9",
+		"name": "RecipeMaager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User 1 Axel Brionne",
+			"item": [
+				{
+					"name": "Add Axel Brionne User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "firstname",
+									"value": "Axel",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "Brionne",
+									"type": "text"
+								},
+								{
+									"key": "mail",
+									"value": "axel.brionne@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "mdpBrionne",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authentification Axel brionne",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mail",
+									"value": "axel.brionne@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "mdpBrionne",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/auth",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Recipe 1 Axel",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=axel.brionne@gmail.com&password=mdpBrionne\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "Recette de cookies",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Voici une recette simple pour faire des cookies maison ;)",
+									"type": "text"
+								},
+								{
+									"key": "cookingInstructions",
+									"value": "Détailler le chocolat en pépites.\nPréchauffer le four à 180°C (thermostat 6). Dans un saladier, mettre 75 g de beurre, le sucre, l'oeuf entier, la vanille et mélanger le tout.",
+									"type": "text"
+								},
+								{
+									"key": "estimatedTime",
+									"value": "25min",
+									"type": "text"
+								},
+								{
+									"key": "creationDate",
+									"value": "{{$randomDateRecent}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add ingredient 1 to recipe 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=axel.brionne@gmail.com&password=mdpBrionne\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Oeuf",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/1/ingredients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"1",
+								"ingredients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add ingredient 2 to recipe 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=axel.brionne@gmail.com&password=mdpBrionne\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Farine",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "2.5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/1/ingredients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"1",
+								"ingredients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add ingredient 3 to recipe 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=axel.brionne@gmail.com&password=mdpBrionne\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Sucre",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "1.75",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/1/ingredients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"1",
+								"ingredients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Recipe 2 Axel",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=axel.brionne@gmail.com&password=mdpBrionne\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "Recette de tiramisu",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Voici une recette original pour faire un merveilleux tiramisu :)",
+									"type": "text"
+								},
+								{
+									"key": "cookingInstructions",
+									"value": "Séparer les blancs des jaunes d'oeufs.\nMélanger les jaunes avec le sucre roux et le sucre vanillé.\nAjouter le mascarpone au fouet.\nMonter les blancs en neige et les incorporer délicatement à la spatule au mélange précédent. Réserver.",
+									"type": "text"
+								},
+								{
+									"key": "estimatedTime",
+									"value": "15min",
+									"type": "text"
+								},
+								{
+									"key": "creationDate",
+									"value": "{{$randomDateRecent}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Recipes Axel Brionne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=axel.brionne@gmail.com&password=mdpBrionne\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add ingredient 1 to recipe 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=axel.brionne@gmail.com&password=mdpBrionne\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Mascarpone",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "4.12",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/2/ingredients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"2",
+								"ingredients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add ingredient 2 to recipe 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=axel.brionne@gmail.com&password=mdpBrionne\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Sucre Roux",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "2.25",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/2/ingredients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"2",
+								"ingredients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Recipe 1 Axel Brionne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=axel.brionne@gmail.com&password=mdpBrionne\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"1"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Recipe 2 Axel Brionne",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=axel.brionne@gmail.com&password=mdpBrionne\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"2"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All ingredients Recipe 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=axel.brionne@gmail.com&password=mdpBrionne\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/1/ingredients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"1",
+								"ingredients"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All ingredients Recipe 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=axel.brionne@gmail.com&password=mdpBrionne\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/2/ingredients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"2",
+								"ingredients"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get ingredient 1  Recipe 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=axel.brionne@gmail.com&password=mdpBrionne\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/1/ingredients/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"1",
+								"ingredients",
+								"1"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get ingredient 2 Recipe 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=axel.brionne@gmail.com&password=mdpBrionne\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/2/ingredients/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"2",
+								"ingredients",
+								"5"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update ingredient 2 to recipe 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=axel.brionne@gmail.com&password=mdpBrionne\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Sucre Vanillé",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "2.25",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/2/ingredients/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"2",
+								"ingredients",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get ingredient 2 Recipe 2 After update",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=axel.brionne@gmail.com&password=mdpBrionne\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/2/ingredients/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"2",
+								"ingredients",
+								"5"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete ingredient 2 Recipe 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=axel.brionne@gmail.com&password=mdpBrionne\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/2/ingredients/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"2",
+								"ingredients",
+								"5"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All ingredients Recipe 2 after delete",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=axel.brionne@gmail.com&password=mdpBrionne\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/2/ingredients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"2",
+								"ingredients"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=axel.brionne@gmail.com&password=mdpBrionne\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/auth/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"refresh"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User 2 Guillaume Balas",
+			"item": [
+				{
+					"name": "Add Guillaume Balas User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "firstname",
+									"value": "Guillaume",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "Balas",
+									"type": "text"
+								},
+								{
+									"key": "mail",
+									"value": "guillaume.balas@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "mdpBalas",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authentification Guilaume Balas",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mail",
+									"value": "guillaume.balas@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "mdpBalas",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/auth",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Recipe 1 Guillaume",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=guillaume.balas@gmail.com&password=mdpBalas\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "Recette de gateau au chocolat fondant",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Voici une recette simple pour faire un gateau au chocolat  ;)",
+									"type": "text"
+								},
+								{
+									"key": "cookingInstructions",
+									"value": "Dans une casserole, faites fondre le chocolat et le beurre coupé en morceaux à feu très doux.\nDans un saladier, ajoutez le sucre, les oeufs, la farine. Mélangez.\nAjoutez le mélange chocolat/beurre. Mélangez bien.",
+									"type": "text"
+								},
+								{
+									"key": "estimatedTime",
+									"value": "40min",
+									"type": "text"
+								},
+								{
+									"key": "creationDate",
+									"value": "{{$randomDateRecent}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add ingredient 1 to recipe 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=guillaume.balas@gmail.com&password=mdpBalas\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Beure",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/3/ingredients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"3",
+								"ingredients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add ingredient 2 to recipe 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=guillaume.balas@gmail.com&password=mdpBalas\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Farine",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "1.34",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/3/ingredients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"3",
+								"ingredients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all ingredients to recipe 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=guillaume.balas@gmail.com&password=mdpBalas\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/3/ingredients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"3",
+								"ingredients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get recipe 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=guillaume.balas@gmail.com&password=mdpBalas\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/3/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"3",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete recipe 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=guillaume.balas@gmail.com&password=mdpBalas\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/3/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"3",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get recipe 1 after delete",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=guillaume.balas@gmail.com&password=mdpBalas\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/3/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"3",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all ingredients to recipe 1 after delete",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const options = {",
+									"    url: 'http://localhost:3000/api/v1/auth',",
+									"    method: 'POST',",
+									"    header: 'Content-Type: application/x-www-form-urlencoded',",
+									"    body: \"mail=guillaume.balas@gmail.com&password=mdpBalas\"",
+									"};",
+									"pm.sendRequest(options, function (err, response) {",
+									"pm.globals.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/recipes/3/ingredients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"recipes",
+								"3",
+								"ingredients"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

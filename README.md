@@ -55,3 +55,7 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+
+## Postman exemple requests
+
+Open file RecipeMaager.postman_collection.json with Postman
